@@ -22,7 +22,7 @@ mod fk {
 #[cfg(feature = "png")]
 use std::fs::*;
 #[cfg(feature = "png")]
-use std::io::BufWriter;
+use std::io::{BufWriter, Write};
 
 use crate::stroke::*;
 use crate::{IntRect, IntPoint, Point, Transform, Vector};
@@ -1102,7 +1102,7 @@ impl<Backing : AsRef<[u32]> + AsMut<[u32]>> DrawTarget<Backing> {
 
     /// Saves the current pixels to a png and writes it to `w`
     #[cfg(feature = "png")]
-    pub fn write_png_to_writer<W: Write>(&self, w: Write) -> Result<(), png::EncodingError> {
+    pub fn write_png_to_writer<W: Write>(&self, w: W) -> Result<(), png::EncodingError> {
         let mut encoder = png::Encoder::new(w, self.width as u32, self.height as u32);
         encoder.set_color(png::ColorType::Rgba);
         encoder.set_depth(png::BitDepth::Eight);
