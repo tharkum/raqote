@@ -38,7 +38,7 @@ impl MaskSuperBlitter {
             width,
             // we can end up writing one byte past the end of the buffer so allocate that
             // padding to avoid needing to do an extra check
-            buf: vec![0; (width * height) as usize + 1],
+            buf: vec![0; (width as i64 * height as i64) as usize + 1],
         }
     }
 }
@@ -99,7 +99,7 @@ impl MaskBlitter {
             width,
             // we can end up writing one byte past the end of the buffer so allocate that
             // padding to avoid needing to do an extra check
-            buf: vec![0; (width * height) as usize + 1],
+            buf: vec![0; (width as i64 * height as i64) as usize + 1],
         }
     }
 }

@@ -370,7 +370,7 @@ impl DrawTarget {
             current_point: None,
             first_point: None,
             rasterizer: Rasterizer::new(width, height),
-            buf: vec![0; (width * height) as usize],
+            buf: vec![0; (width as i64 * height as i64) as usize],
             clip_stack: Vec::new(),
             layer_stack: Vec::new(),
             transform: Transform::identity(),
@@ -379,7 +379,7 @@ impl DrawTarget {
 
     /// Use a previously used vector for the bitmap and extend it to the given size(if needed)
     pub fn from_vec(width: i32, height: i32, mut vec: Vec<u32>) -> DrawTarget{
-        vec.resize((width*height) as usize, 0);
+        vec.resize((width as i64 * height as i64) as usize, 0);
         DrawTarget {
             width,
             height,
@@ -404,7 +404,7 @@ impl<Backing : AsRef<[u32]> + AsMut<[u32]>> DrawTarget<Backing> {
     ///
     /// The backing store must be the correct size (width*height elements).
     pub fn from_backing(width: i32, height: i32, buf : Backing) -> Self {
-        assert_eq!((width*height) as usize, buf.as_ref().len());
+        assert_eq!((width as i64 * height as i64) as usize, buf.as_ref().len());
         DrawTarget {
             width,
             height,
